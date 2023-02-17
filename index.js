@@ -73,7 +73,13 @@ const mainMenu = async () => {
 };
 
 const viewAllDepartments = () => {
-	db.find;
+	db.findAllDepartments()
+		.then(([rows]) => {
+			let departments = rows;
+			console.log('\n');
+			console.table(departments);
+		})
+		.then(() => mainMenu());
 };
 
 const viewAllRoles = () => {};
