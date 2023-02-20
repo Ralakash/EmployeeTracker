@@ -86,11 +86,52 @@ const viewAllRoles = () => {};
 
 const viewAllEmployees = () => {};
 
-const addDepartment = () => {};
+const addDepartment = () => {
+	prompt([
+		{
+			name: 'name',
+			message: 'what is the name of the department',
+		},
+	]).then((res) => {
+		let name = res;
+		db.createDepartment(name)
+			.then(() => console.log(`Added ${name.name}`))
+			.then(() => mainMenu());
+	});
+};
 
-const addRole = () => {};
+const addRole = () => {
+	prompt([
+		{
+			name: 'name',
+			message: 'what is the name of the role',
+		},
+	]).then((res) => {
+		let name = res;
+		db.createRole(name)
+			.then(() => console.log(`Added ${name.name}`))
+			.then(() => mainMenu());
+	});
+};
 
-const addEmployee = () => {};
+const addEmployee = () => {
+	prompt([
+		{
+			name: ' first_name',
+			message: 'what is the first name of the Employee',
+		},
+		{
+			name: ' last_name',
+			message: 'what is the last name of the Employee',
+		},
+	]).then((res) => {
+		let firstName = res.first_name;
+		let lastName = res.last_name;
+		db.createemployee({ firstName, lastName })
+			.then(() => console.log(`Added ${name.name}`))
+			.then(() => mainMenu());
+	});
+};
 
 const updateRole = () => {};
 
