@@ -210,12 +210,15 @@ const updateRole = () => {
 					name: 'roleId',
 					message: "Please select the employee's new role",
 					choices: roleChoices,
-				}).then(res => db.updateRole(employeeId, res.roleID))
-				.then(() => {console.log("Updated employee's role")})
-				.then(() => mainMenu());
-
+				})
+					.then((res) => db.updateRole(employeeId, res.roleID))
+					.then(() => {
+						console.log("Updated employee's role");
+					})
+					.then(() => mainMenu());
+			});
 		});
-	})
+	});
 };
 
 const quit = () => {
