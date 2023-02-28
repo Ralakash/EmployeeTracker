@@ -42,34 +42,38 @@ const mainMenu = async () => {
 				},
 			],
 		},
-	]).then((res) => {
-		let choice = res.choice;
-		switch (choice) {
-			case 'VIEW_DEPARTMENTS':
-				viewAllDepartments();
-				break;
-			case 'VIEW_ROLES':
-				viewAllRoles();
-				break;
-			case 'VIEW_EMPLOYEES':
-				viewAllEmployees();
-				break;
-			case 'ADD_DEPARTMENT':
-				addDepartment();
-				break;
-			case 'ADD_ROLE':
-				addRole();
-				break;
-			case 'ADD_EMPLOYEE':
-				addEmployee();
-				break;
-			case 'UPDATE_ROLE':
-				updateRole();
-				break;
-			default:
-				quit();
-		}
-	});
+	])
+		.then((res) => {
+			let choice = res.choice;
+			switch (choice) {
+				case 'VIEW_DEPARTMENTS':
+					viewAllDepartments();
+					break;
+				case 'VIEW_ROLES':
+					viewAllRoles();
+					break;
+				case 'VIEW_EMPLOYEES':
+					viewAllEmployees();
+					break;
+				case 'ADD_DEPARTMENT':
+					addDepartment();
+					break;
+				case 'ADD_ROLE':
+					addRole();
+					break;
+				case 'ADD_EMPLOYEE':
+					addEmployee();
+					break;
+				case 'UPDATE_ROLE':
+					updateRole();
+					break;
+				default:
+					quit();
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 };
 
 const viewAllDepartments = () => {
@@ -117,17 +121,38 @@ const addDepartment = () => {
 };
 
 const addRole = () => {
-	prompt([
-		{
-			name: 'name',
-			message: 'what is the name of the role',
-		},
-	]).then((res) => {
-		let name = res;
-		db.createRole(name)
-			.then(() => console.log(`Added ${name.name}`))
-			.then(() => mainMenu());
-	});
+	let departmentChoices = [];
+	db.findAllDepartments()
+		.then(([rows]) => {
+			let departments = rows;
+			departmentChoices = departments.map(({ id, name }) => ({
+				name: name,
+				value: id,
+			}));
+		})
+		.then(() => {
+			prompt([
+				{
+					name: 'title',
+					message: 'what is the name of the role',
+				},
+				{
+					name: 'salary',
+					message: 'what is the salary of the role',
+				},
+				{
+					type: 'list',
+					name: 'department_id',
+					message: 'Which department is the role in?',
+					choices: departmentChoices,
+				},
+			]).then((role) => {
+				console.log(role);
+				db.createRole(role)
+					.then(() => console.log(`Added ${role.title}`))
+					.then(() => mainMenu());
+			});
+		});
 };
 
 const addEmployee = () => {
@@ -229,3 +254,5 @@ const quit = () => {
 const init = () => {
 	mainMenu();
 };
+
+init();

@@ -1,0 +1,26 @@
+{
+	"name": "employeetracker",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js",
+		"seed": "node db/seed.sql"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Ralakash/EmployeeTracker.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Ralakash/EmployeeTracker/issues"
+	},
+	"homepage": "https://github.com/Ralakash/EmployeeTracker#readme",
+	"dependencies": {
+		"inquirer": "^8.2.5",
+		"mysql2": "^3.1.2"
+	}
+}

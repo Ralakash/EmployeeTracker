@@ -11,17 +11,15 @@ class DB {
 
 	findAllRoles() {
 		return this.connection
-			.promis()
-			.query(
-				'SELECT role.id, role.title, department.name AS department, role.department_id, role.salary'
-			);
+			.promise()
+			.query('SELECT role.id, role.title, role.department_id, role.salary');
 	}
 
 	findAllEmployees() {
 		return this.connection
 			.promise()
 			.query(
-				"SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager"
+				"SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name , role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager"
 			);
 	}
 
